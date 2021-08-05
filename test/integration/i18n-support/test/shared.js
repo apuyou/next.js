@@ -1183,6 +1183,21 @@ export function runTests(ctx) {
     }
   })
 
+  it('should apply global headers to index pages correctly', async () => {
+    for (const [path, shouldAdd] of [['/en', true]]) {
+      const res = await fetchViaHTTP(
+        ctx.appPort,
+        `${ctx.basePath}${path}`,
+        undefined,
+        {
+          redirect: 'manual',
+        }
+      )
+      expect(res.status).toBe(200)
+      expect(res.headers.get('x-hello-global')).toBe(shouldAdd ? 'world' : null)
+    }
+  })
+
   it('should visit API route directly correctly', async () => {
     for (const locale of locales) {
       const res = await fetchViaHTTP(

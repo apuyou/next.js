@@ -125,6 +125,15 @@ module.exports = {
           },
         ],
       },
+      {
+        source: '/(.*)',
+        headers: [
+          {
+            key: 'x-hello-global',
+            value: 'world',
+          },
+        ],
+      },
     ]
   },
 }
